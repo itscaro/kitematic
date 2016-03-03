@@ -35,6 +35,13 @@ webUtil.disableGlobalBackspace();
 
 Menu.setApplicationMenu(Menu.buildFromTemplate(template()));
 
+if (process.env.NODE_ENV === 'development') {
+  window.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+    Menu.buildFromTemplate(template()).popup(remote.getCurrentWindow());
+  }, false);
+}
+
 metrics.track('Started App');
 metrics.track('app heartbeat');
 setInterval(function () {
