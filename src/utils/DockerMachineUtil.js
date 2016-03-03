@@ -14,6 +14,10 @@ var DockerMachine = {
     }
   },
   name: function () {
+    var settings = util.settingsjson();
+    if (settings && settings.docker_machine && settings.docker_machine.name) {
+      return settings.docker_machine.name;
+    }
     return 'default';
   },
   installed: function () {
@@ -58,7 +62,15 @@ var DockerMachine = {
     });
   },
   create: function (machineName = this.name()) {
-    return util.execFile([this.command(), '-D', 'create', '-d', 'virtualbox', '--virtualbox-memory', '2048', machineName]);
+    var settings = util.settingsjson();
+    var memory = 2048, cpus = 1;
+    if (settings && settings.docker_machine && settings.docker_machine.memory) {
+      memory = settings.docker_machine.memory;
+    }
+    if (settings && settings.docker_machine && settings.docker_machine.cpus) {
+      cpus = settings.docker_machine.cpus;
+    }
+    return util.execFile([this.command(), '-D', 'create', '-d', 'virtualbox', '--virtualbox-memory', memory, '--virtualbox-cpu-count', cpus, machineName]);
   },
   start: function (machineName = this.name()) {
     return util.execFile([this.command(), '-D', 'start', machineName]);
