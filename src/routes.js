@@ -15,6 +15,7 @@ import Preferences from './components/Preferences.react';
 import About from './components/About.react';
 import Loading from './components/Loading.react';
 import NewContainerSearch from './components/NewContainerSearch.react';
+import DockerMachine from './components/DockerMachine.react';
 import Router from 'react-router';
 
 var Route = Router.Route;
@@ -47,6 +48,7 @@ var routes = (
       </Route>
       <Route name="search" handler={NewContainerSearch}/>
       <Route name="preferences" path="preferences" handler={Preferences}/>
+      <Route name="dockermachine" path="dockermachine" handler={DockerMachine}/>
       <Route name="about" path="about" handler={About}/>
     </Route>
     <DefaultRoute name="loading" handler={Loading}/>

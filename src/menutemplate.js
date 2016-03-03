@@ -26,6 +26,16 @@ var MenuTemplate = function () {
         }
       },
       {
+        label: 'Docker Machine',
+        enabled: !!docker.host,
+        click: function () {
+          metrics.track('Docker Machine', {
+            from: 'menu'
+          });
+          router.get().transitionTo('dockermachine');
+        }
+      },
+      {
         type: 'separator'
       },
       {
